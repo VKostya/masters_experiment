@@ -1,0 +1,19 @@
+True
+Iterations -- 30 selecting 1% values
+Function=select_no_cache, Time=0.005929708480834961
+Function=select_cache, Time=0.015445709228515625
+Iterations -- 300 selecting 1% values
+Function=select_no_cache, Time=0.05046796798706055
+Function=select_cache, Time=0.1405186653137207
+Iterations -- 30 selecting 10% values
+Function=select_no_cache, Time=0.00494694709777832
+Function=select_cache, Time=0.014507532119750977
+Iterations -- 300 selecting 10% values
+Function=select_no_cache, Time=0.05732011795043945
+Function=select_cache, Time=0.14474010467529297
+Iterations -- 30 selecting 100% values
+Function=select_no_cache, Time=0.006110191345214844
+Function=select_cache, Time=0.015446662902832031
+Iterations -- 300 selecting 100% values
+Function=select_no_cache, Time=0.05202436447143555
+Function=select_cache, Time=0.16401338577270508
