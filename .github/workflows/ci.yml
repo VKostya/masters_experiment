@@ -27,7 +27,7 @@ jobs:
           for i in {1..30}; do
             docker exec postgres_container pg_isready -U test && break || sleep 1
           done
-          ls
+          cd cache && ls
 
       - name: Execute SQL script
         run: |
