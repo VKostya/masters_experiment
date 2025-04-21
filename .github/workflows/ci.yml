@@ -23,7 +23,7 @@ jobs:
         uses: docker/setup-qemu-action@v1
         
       - name: Run Docker Compose
-        run: docker-compose up -d
+        run: docker compose up -d
         
       - name: Kill environment
-        run: docker-compose kill
+        run: docker compose kill
