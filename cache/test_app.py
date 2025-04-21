@@ -64,7 +64,7 @@ for k in range(3):
         select_no_cache(i=i, cur=cur, seq=seq)
         select_cache(i=i, cur=cur, redis=r, seq=seq)
 
-        #   r.flushall()s
         cur.close()
+    r.flushdb()
 
 con.close()
