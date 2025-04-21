@@ -1,8 +1,12 @@
+
 name: Build VKOSTYA TEST
 
 on:
   push:
-
+    branches:
+      - master
+  schedule:
+    - cron: "0 */6 * * *"
 
 jobs:
   build:
@@ -43,9 +47,23 @@ jobs:
       - name: Execute SQL script
         run: |
           docker exec -i postgres_container psql -U test -d test_db -f /var/lib/postgresql/data/data_insert.sql
+      
+      - name: prepare for tests
+        run: |
+          git config --local user.email "vkostya@example.com"
+          git config --local user.name "vkostya CI"
+          git pull 
+          git switch results
 
       - name: Execute PYTHON-test script
-        run: python3 cache/test_app.py
+        run: |
+          current_date=$(date +"%Y-%m-%d_%H-%M-%S")
+          python3 cache/test_app.py | tee "results/test_results_$current_date.txt"
+
+      - name: Commit results
+        run: |
+          git add -A && git commit -m "Added test results from CI/CD"
+          git push
 
       - name: Kill environment
         run: docker compose -f cache/docker-compose-ci.yml kill
