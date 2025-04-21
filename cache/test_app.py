@@ -59,7 +59,7 @@ for k in range(3):
     koef = 1 * (k + 1)
     for i in range(2):
         cur = con.cursor()
-        print(f"Iterations --", ((10 ** (i + 1)) * 3), "selecting {koef}% values")
+        print("Iterations --", ((10 ** (i + 1)) * 3), f"selecting {koef}% values")
         seq = generate_id_seq(i=i, koef=koef)
         select_no_cache(i=i, cur=cur, seq=seq)
         select_cache(i=i, cur=cur, redis=r, seq=seq)
