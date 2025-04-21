@@ -57,7 +57,7 @@ con = psycopg2.connect(
 )
 for k in range(3):
     koef = 1 * (k + 1)
-    for i in range(5):
+    for i in range(2):
         cur = con.cursor()
         print(f"Iterations --", ((10 ** (i + 1)) * 3), "selecting {koef}% values")
         seq = generate_id_seq(i=i, koef=koef)
