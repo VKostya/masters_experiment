@@ -56,7 +56,7 @@ con = psycopg2.connect(
     dbname="test_db", user="test", host="127.0.0.1", password="test", port="5432"
 )
 for k in range(3):
-    koef = 1 * (k + 1)
+    koef = 10**k
     for i in range(2):
         cur = con.cursor()
         print("Iterations --", ((10 ** (i + 1)) * 3), f"selecting {koef}% values")
