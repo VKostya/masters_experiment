@@ -31,7 +31,7 @@ jobs:
 
       - name: Execute SQL script
         run: |
-          docker cp cache/data_insert.sql postgres_container:/cache/data_insert.sql && docker exec -i postgres_container psql -U test -d test_db -f /cache/data_insert.sql
+          docker cp cache/data_insert.sql postgres_container:/var/lib/postgresql/data/data_insert.sql && docker exec -i postgres_container psql -U test -d test_db -f /var/lib/postgresql/data/data_insert.sql
 
       - name: Kill environment
         run: docker compose -f cache/docker-compose-ci.yml kill
