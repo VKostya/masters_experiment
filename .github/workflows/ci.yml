@@ -23,4 +23,4 @@ jobs:
         run: docker compose -f cache/docker-compose.yml up -d
         
       - name: Kill environment
-        run: docker compose kill
+        run: docker compose -f cache/docker-compose.yml kill
