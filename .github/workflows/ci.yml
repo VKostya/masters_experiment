@@ -21,6 +21,12 @@ jobs:
         
       - name: Run Docker Compose
         run: docker compose -f cache/docker-compose.yml up -d
+      
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          for i in {1..30}; do
+            docker exec postgres_container pg_isready -U test && break || sleep 1
+          done
 
       - name: Execute SQL script
         run: |
