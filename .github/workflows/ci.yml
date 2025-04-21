@@ -57,6 +57,9 @@ jobs:
         run: |
           git config --local user.email "vkostya@example.com"
           git config --local user.name "vkostya CI"
+          git branch
+          echo -----------
+          git branch -r
           git switch results
           git add -A && git commit -m "Added test results from CI/CD"
           git push
