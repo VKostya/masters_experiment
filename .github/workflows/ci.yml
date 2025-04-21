@@ -21,6 +21,10 @@ jobs:
         
       - name: Run Docker Compose
         run: docker compose -f cache/docker-compose.yml up -d
-        
+
+      - name: Execute SQL script
+        run: |
+          docker exec -i postgres_container psql -U test -d test_db -f data_insert.sql
+
       - name: Kill environment
         run: docker compose -f cache/docker-compose.yml kill
