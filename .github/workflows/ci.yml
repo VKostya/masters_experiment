@@ -12,7 +12,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+      
+      - name: python setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: install dependencies
+        run: pip install -r req.txt
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
         
@@ -35,6 +43,9 @@ jobs:
       - name: Execute SQL script
         run: |
           docker exec -i postgres_container psql -U test -d test_db -f /var/lib/postgresql/data/data_insert.sql
+
+      - name: Execute PYTHON-test script
+        run: python3 cache/test_app.py
 
       - name: Kill environment
         run: docker compose -f cache/docker-compose-ci.yml kill

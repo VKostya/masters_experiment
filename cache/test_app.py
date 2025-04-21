@@ -21,8 +21,8 @@ def st_time(func):
     return st_func
 
 
-def generate_id_seq(i):
-    return [random.randint(1, 1000) for x in range((10 ** (i + 1)) * 3)]
+def generate_id_seq(i, koef):
+    return [random.randint(1, 1000 * koef) for x in range((10 ** (i + 1)) * 3)]
 
 
 @st_time
@@ -55,15 +55,16 @@ print(r.ping())
 con = psycopg2.connect(
     dbname="test_db", user="test", host="127.0.0.1", password="test", port="5432"
 )
+for k in range(3):
+    koef = 1 * (k + 1)
+    for i in range(5):
+        cur = con.cursor()
+        print(f"Iterations --", ((10 ** (i + 1)) * 3), "selecting {koef}% values")
+        seq = generate_id_seq(i=i, koef=koef)
+        select_no_cache(i=i, cur=cur, seq=seq)
+        select_cache(i=i, cur=cur, redis=r, seq=seq)
 
-for i in range(5):
-    cur = con.cursor()
-    print("Iterations --", ((10 ** (i + 1)) * 3), "selecting 1% values")
-    seq = generate_id_seq(i=i)
-    select_no_cache(i=i, cur=cur, seq=seq)
-    select_cache(i=i, cur=cur, redis=r, seq=seq)
-
-    #    r.flushall()
-    cur.close()
+        #   r.flushall()s
+        cur.close()
 
 con.close()
