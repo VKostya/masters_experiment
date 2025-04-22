@@ -1,0 +1,46 @@
+True
+Iterations -- 30 selecting 1% values
+Function=select_no_cache, Time=0.006200551986694336
+Function=select_cache, Time=0.015689373016357422
+Iterations -- 300 selecting 1% values
+Function=select_no_cache, Time=0.05701112747192383
+Function=select_cache, Time=0.13249635696411133
+Iterations -- 3000 selecting 1% values
+Function=select_no_cache, Time=0.5453372001647949
+Function=select_cache, Time=0.7121238708496094
+Iterations -- 30000 selecting 1% values
+Function=select_no_cache, Time=5.228377103805542
+Function=select_cache, Time=4.564714193344116
+Iterations -- 300000 selecting 1% values
+Function=select_no_cache, Time=52.01991558074951
+Function=select_cache, Time=44.80801486968994
+Iterations -- 30 selecting 10% values
+Function=select_no_cache, Time=0.005499601364135742
+Function=select_cache, Time=0.013170719146728516
+Iterations -- 300 selecting 10% values
+Function=select_no_cache, Time=0.05310821533203125
+Function=select_cache, Time=0.1481919288635254
+Iterations -- 3000 selecting 10% values
+Function=select_no_cache, Time=0.5190083980560303
+Function=select_cache, Time=1.274413824081421
+Iterations -- 30000 selecting 10% values
+Function=select_no_cache, Time=5.191786289215088
+Function=select_cache, Time=6.732871055603027
+Iterations -- 300000 selecting 10% values
+Function=select_no_cache, Time=52.24599647521973
+Function=select_cache, Time=44.89870572090149
+Iterations -- 30 selecting 100% values
+Function=select_no_cache, Time=0.005396604537963867
+Function=select_cache, Time=0.013966560363769531
+Iterations -- 300 selecting 100% values
+Function=select_no_cache, Time=0.05206871032714844
+Function=select_cache, Time=0.1457962989807129
+Iterations -- 3000 selecting 100% values
+Function=select_no_cache, Time=0.5250968933105469
+Function=select_cache, Time=1.423004388809204
+Iterations -- 30000 selecting 100% values
+Function=select_no_cache, Time=5.299845457077026
+Function=select_cache, Time=12.934992790222168
+Iterations -- 300000 selecting 100% values
+Function=select_no_cache, Time=52.45898079872131
+Function=select_cache, Time=67.53104376792908
