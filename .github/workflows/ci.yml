@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build n deploy
+    name: set up enviroment
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +29,13 @@ jobs:
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-        
+
+  
+  build:
+    name: build enviroment
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Run Docker Compose
         run: docker compose -f cache/docker-compose-ci.yml up -d
       
@@ -46,7 +52,12 @@ jobs:
       - name: Execute SQL script
         run: |
           docker exec -i postgres_container psql -U test -d test_db -f /var/lib/postgresql/data/data_insert.sql
-      
+  
+  build:
+    name: run & save tests 
+    runs-on: ubuntu-latest
+
+    steps:
       - name: prepare for tests
         run: |
           git config --local user.email "vkostya@example.com"
@@ -63,6 +74,8 @@ jobs:
         run: |
           git add -A && git commit -m "Added test results from CI/CD"
           git push
-
+      
       - name: Kill environment
         run: docker compose -f cache/docker-compose-ci.yml kill
+
+      
