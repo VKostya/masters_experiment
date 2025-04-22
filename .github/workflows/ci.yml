@@ -8,74 +8,73 @@ on:
     - cron: "0 */6 * * *"
 
 jobs:
-  build:
-    name: set up enviroment
+  setup:
+    name: Set Up Environment
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
-      - name: python setup
+
+      - name: Python Setup
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
 
-      - name: install dependencies
+      - name: Install Dependencies
         run: pip install -r req.txt
 
-      - name: Set up Docker Buildx
+      - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        
-      - name: Set up QEMU
+
+      - name: Set Up QEMU
         uses: docker/setup-qemu-action@v1
 
-  
-  build:
-    name: build enviroment
+  build_environment:
+    name: Build Environment
     runs-on: ubuntu-latest
+    needs: setup
 
     steps:
       - name: Run Docker Compose
         run: docker compose -f cache/docker-compose-ci.yml up -d
-      
-      - name: Wait for PostgreSQL to be ready
+
+      - name: Wait for PostgreSQL to be Ready
         run: |
           for i in {1..30}; do
             docker exec postgres_container pg_isready -U test && break || sleep 1
           done
 
-      - name: Copy SQL script
+      - name: Copy SQL Script
         run: |
           docker cp data_insert.sql postgres_container:/var/lib/postgresql/data/data_insert.sql      
 
-      - name: Execute SQL script
+      - name: Execute SQL Script
         run: |
           docker exec -i postgres_container psql -U test -d test_db -f /var/lib/postgresql/data/data_insert.sql
-  
-  build:
-    name: run & save tests 
+
+  run_tests:
+    name: Run & Save Tests 
     runs-on: ubuntu-latest
+    needs: build_environment
 
     steps:
-      - name: prepare for tests
+      - name: Prepare for Tests
         run: |
           git config --local user.email "vkostya@example.com"
           git config --local user.name "vkostya CI"
           git pull 
           git switch results
 
-      - name: Execute PYTHON-test script
+      - name: Execute PYTHON Test Script
         run: |
           current_date=$(date +"%Y-%m-%d_%H-%M-%S")
           python3 cache/test_app.py | tee "results/test_results_$current_date.txt"
 
-      - name: Commit results
+      - name: Commit Results
         run: |
           git add -A && git commit -m "Added test results from CI/CD"
           git push
       
-      - name: Kill environment
+      - name: Kill Environment
         run: docker compose -f cache/docker-compose-ci.yml kill
-
-      
