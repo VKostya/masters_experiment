@@ -59,6 +59,9 @@ jobs:
           current_date=$(date +"%Y-%m-%d_%H-%M-%S")
           python3 cache/test_app.py | tee "results/test_results_$current_date.txt"
 
+      - name: Generate index.html
+        run: python generate_index.py
+      
       - name: Commit results
         run: |
           git add -A && git commit -m "Added test results from CI/CD"
